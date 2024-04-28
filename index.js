@@ -8,6 +8,7 @@ const fcs = require("./functions.js");
 
 // Constants
 const important = require("./important_shit.json");
+const { sourceMapsEnabled } = require('process');
 
 
 // Variables by storage
@@ -17,13 +18,8 @@ const CLIENT_ID = important.client_id
 
 // O cliente do bot
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
+const { commands } = require('./handler.js')
 
-const commands = [
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-];
 
 // Important things
 
@@ -58,3 +54,26 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(TOKEN);
+
+
+
+
+// BOT RESETS UPDATER
+fs.readFile('./storage/data.json', 'utf8', function readFileCallback(err, data) {
+    if (err) {
+        console.log("bruh\n");
+
+        console.log(err);
+    }
+    else {
+        // Turning to object
+        var soul = JSON.parse(data);
+
+        soul.resets++
+        soul = JSON.stringify(soul)
+
+        fs.writeFileSync('./storage/data.json', soul);
+    }
+});
+
+

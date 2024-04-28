@@ -1,0 +1,8 @@
+module.exports = {
+    name: "",
+    type: "",
+    description: "",
+    async function () {
+        console.log("rola");
+    }
+}
