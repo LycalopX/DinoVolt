@@ -1,19 +1,22 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+
+// Actual requirements
 const fs = require('fs')
+const Discord = require("discord.js");
+const fcs = require("./functions.js");
 
 
-// Importar algumas constantes
-import { REST, Routes, Client, GatewayIntentBits } from 'discord.js';
+
+// Constants
 const important = require("./important_shit.json");
 
 
-
+// Variables by storage
 const TOKEN = important.token
+const CLIENT_ID = important.client_id
 
 
 // O cliente do bot
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
 
 const commands = [
     {
@@ -23,19 +26,22 @@ const commands = [
 ];
 
 // Important things
-const CLIENT_ID = "1234006524133642300";
 
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const rest = new Discord.REST({ version: '10' }).setToken(TOKEN);
 
-try {
-    console.log('Started refreshing application (/) commands.');
+async function trying() {
+    try {
+        console.log('Started refreshing application (/) commands.');
 
-    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+        await rest.put(Discord.Routes.applicationCommands(CLIENT_ID), { body: commands });
 
-    console.log('Successfully reloaded application (/) commands.');
-} catch (error) {
-    console.error(error);
+        console.log('Successfully reloaded application (/) commands.');
+    } catch (error) {
+        console.error(error);
+    }
 }
+
+trying();
 
 
 client.on('ready', () => {
