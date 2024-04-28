@@ -5,21 +5,17 @@ const Discord = require("discord.js");
 const fcs = require("./functions.js");
 
 
-
 // Constants
 const important = require("./important_shit.json");
-const { sourceMapsEnabled } = require('process');
 
-const { commandHandler } = require('./handler.js')
+const { commandHandler, client } = require('./handler.js')
 
 
 // Variables by storage
 const TOKEN = important.token
+
 const CLIENT_ID = important.client_id
 
-
-// O cliente do bot
-const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
 
 
 // Important things
@@ -32,19 +28,15 @@ const rest = new Discord.REST({ version: '10' }).setToken(TOKEN);
     const commands = await commandHandler();
 
     try {
-        console.log(`\nStarted refreshing ${commands.length} application (/) commands.`);
-
-        // The put method is used to fully refresh all commands in the guild with the current set
-        const data = await rest.put(
-            Discord.Routes.applicationCommands(CLIENT_ID),
-            { body: commands },
-        );
-
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-    } catch (error) {
-        // And of course, make sure you catch and log any errors!
+        console.log('Started refreshing application (/) commands.');
+      
+        await rest.put(Discord.Routes.applicationCommands(CLIENT_ID), { body: commands });
+      
+        console.log('Successfully reloaded application (/) commands.');
+      } catch (error) {
         console.error(error);
-    }
+      }
+
 })();
 
 
@@ -76,10 +68,10 @@ client.on('interactionCreate', async interaction => {
         interaction.reply("Oops, parece que não há nenhum comando com esse nome! \nQue tal tentar outro?")
 
             // After a short while, delete it
-            .then(interaction => {
-                setTimeout(() => interaction.delete(), 10000)
-            })
-            .catch(/*Your Error handling if the Message isn't returned, sent, etc.*/);
+            //.then(interaction => {
+            //    setTimeout(() => interaction.delete(), 10000)
+            //})
+            //.catch(/*Your Error handling if the Message isn't returned, sent, etc.*/);
     }
 
 

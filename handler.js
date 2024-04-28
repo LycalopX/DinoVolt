@@ -9,10 +9,10 @@ var commandFolders = fs.readdirSync(folderPath);
 
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
 
-client.commands = new Discord.Collection();
 const commands = []
 
 async function commandHandler() {
+    client.commands = new Discord.Collection();
 
     for (const folder of commandFolders) {
 
@@ -37,4 +37,4 @@ async function commandHandler() {
     return commands
 }
 
-module.exports = { commandHandler }
+module.exports = { commandHandler, client }
