@@ -1,0 +1,21 @@
+{
+  "name": "dinovolt",
+  "version": "8.4.3",
+  "description": "DinoVolt, the Cyber Dino Pokémon, is a magnificent creature with the body of a dinosaur and the power of electricity coursing through its veins. Its rugged exterior is adorned with circuit-like patterns, showcasing its affinity for all things digital. With lightning reflexes and a keen intellect, DinoVolt is both a formidable opponent in battle and a curious explorer of the digital realm. DinoVolt's tail acts as a powerful conductor, capable of channeling and directing electricity with pinpoint accuracy. Its razor-sharp claws can tear through tough obstacles, while its sturdy build provides resilience against even the most powerful of attacks. This Pokémon's eyes glow with an electric blue hue, reflecting its connection to the energy that powers the digital world. DinoVolt is drawn to areas rich in technology, where it can often be found exploring the inner workings of computers and other electronic devices. Trainers who befriend DinoVolt gain a loyal companion with unparalleled knowledge of the digital landscape, making them a formidable team in both battles and technological endeavors.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "dinovolt"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Muchacho and LycalopX",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "discord.js": "^14.12.1"
+  }
+}
