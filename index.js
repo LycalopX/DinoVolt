@@ -1,5 +1,16 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const fs = require('fs')
+
+
 // Importar algumas constantes
 import { REST, Routes, Client, GatewayIntentBits } from 'discord.js';
+const important = require("./important_shit.json");
+
+
+
+const TOKEN = important.token
+
 
 // O cliente do bot
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -12,7 +23,6 @@ const commands = [
 ];
 
 // Important things
-const TOKEN = "MTIzNDAwNjUyNDEzMzY0MjMwMA.GHJjb4.xA8mWYNdTeS5ALAFi8jh_V7YKLhb4YN_BsJG4w";
 const CLIENT_ID = "1234006524133642300";
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);

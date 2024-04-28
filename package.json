@@ -18,5 +18,5 @@
   "dependencies": {
     "discord.js": "^14.12.1"
   },
-  "type": "module"
+  "type":"module"
 }
