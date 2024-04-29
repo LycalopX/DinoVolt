@@ -11,6 +11,8 @@ const important = require("./important_shit.json");
 const { commandHandler, client } = require('./handler.js')
 
 
+
+
 // Variables by storage
 const TOKEN = important.token
 const CLIENT_ID = important.client_id
@@ -45,7 +47,6 @@ const ver = 0;
 
         }
     })();
-
 
 
 
@@ -98,12 +99,9 @@ client.on('interactionCreate', async interaction => {
 
 });
 
-
 // EVENTO: Enviar mensagem
 client.on('messageCreate', async message => {
 })
-
-
 
 
 client.login(TOKEN);
