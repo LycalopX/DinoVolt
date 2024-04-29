@@ -7,7 +7,13 @@ const fcs = require("./functions.js");
 var folderPath = "./commands";
 var commandFolders = fs.readdirSync(folderPath);
 
-const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
+const client = new Discord.Client({
+    intents: [
+        Discord.GatewayIntentBits.Guilds,
+        Discord.GatewayIntentBits.GuildMessages,
+        Discord.GatewayIntentBits.MessageContent,
+    ]
+});
 
 const commands = []
 
@@ -31,6 +37,22 @@ async function commandHandler() {
                 console.log(`[Aviso] O comando em ${folderPath}/${folder}/${file} está faltando os parâmetros "data" ou "execute", que são básicos para sua execução.`);
             }
 
+        }
+    }
+
+
+    // Lidando com os eventos
+    var eventsPath = "./events";
+    var eventFiles = fs.readdirSync(`./${eventsPath}`).filter(file => file.endsWith(".js"))
+
+    for (const file of eventFiles) {
+        const filePath = `${eventsPath}/${file}`
+        const event = require(filePath);
+
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(...args));
+        } else {
+            client.on(event.name, (...args) => event.execute(...args));
         }
     }
 
