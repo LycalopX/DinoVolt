@@ -1,5 +1,11 @@
 async function meth () {
-    console.log("So, meth is on the run :3")
 }
 
-module.exports = { meth }
+async function sum(x, y) {
+    sum = x + y;
+
+    return sum;
+}
+
+
+module.exports = { meth, sum }
