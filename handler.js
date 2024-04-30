@@ -11,6 +11,7 @@ const client = new Discord.Client({
     intents: [
         Discord.GatewayIntentBits.Guilds,
         Discord.GatewayIntentBits.GuildMessages,
+        Discord.GatewayIntentBits.GuildVoiceStates,
         Discord.GatewayIntentBits.MessageContent,
     ]
 });
@@ -50,13 +51,13 @@ async function commandHandler() {
         const event = require(filePath);
 
         if (event.once) {
-            client.once(event.name, (...args) => event.execute(...args));
+            client.once(event.name, (...args) => event.execute(...args), client);
         } else {
-            client.on(event.name, (...args) => event.execute(...args));
+            client.on(event.name, (...args) => event.execute(...args, client));
         }
     }
 
-    return commands
+    return commands;
 }
 
 module.exports = { commandHandler, client }

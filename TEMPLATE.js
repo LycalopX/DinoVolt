@@ -5,7 +5,12 @@ module.exports = {
 	data: new Discord.SlashCommandBuilder()
 
 		.setName("")
-		.setDescription(''),
+		.setDescription('')
+
+		.addStringOption(option =>
+			option
+				.setName('')
+				.setDescription('')),
 
 	async execute(interaction) {
         // Whatever
@@ -18,7 +23,9 @@ const { Events } = require('discord.js');
 module.exports = {
 	name: Events.ClientReady,
 	once: true,
-	execute(client) {
+	execute(argument, client) {
 		console.log(`Ready! Logged in as ${client.user.tag}`);
+		
+		const reason = interaction.options.getString('reason')
 	},
 };
