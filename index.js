@@ -7,10 +7,9 @@ const fcs = require("./functions.js");
 
 
 // Constants
-const important = require("./important_shit.json");
 const { commandHandler, client } = require('./handler.js')
-
-
+var token = ""
+var client_id = ""
 
 
 
@@ -18,7 +17,6 @@ const { commandHandler, client } = require('./handler.js')
 // Music Player
 const { DisTube } = require('distube')
 const { YtDlpPlugin } = require('@distube/yt-dlp');
-
 
 client.distube = new DisTube(client, {
     leaveOnStop: false,
@@ -30,6 +28,18 @@ client.distube = new DisTube(client, {
     ]
 })
 
+
+
+// Heroku dependancy
+if (process.env.TOKEN) {
+    token += process.env.TOKEN
+    client_id += process.env.CLIENT_ID
+} else {
+    var important = require("./important_shit.json");
+
+    token += important.token
+    client_id += important.client_id
+}
 
 
 
@@ -165,8 +175,8 @@ fs.readFile('./storage/data.json', 'utf8', function readFileCallback(err, data) 
                 const dancinparrot = client.emojis.cache.get("1234961203709874326")
 
                 var embededMessage = await
-                    fcs.embed("3364FF", `${glitchedcat} Tocando: ${song.name} - Duração: ${song.formattedDuration} ${glitchedcat}`, null, null, 
-                    `${dancinparrot} Pedido por: ${song.user} ${dancinparrot}`)
+                    fcs.embed("3364FF", `${glitchedcat} Tocando: ${song.name} - Duração: ${song.formattedDuration} ${glitchedcat}`, null, null,
+                        `${dancinparrot} Pedido por: ${song.user} ${dancinparrot}`)
 
                 interaction.textChannel.send({ embeds: [embededMessage] })
             });
