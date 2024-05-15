@@ -1,2 +1,1 @@
-<process type>: worker
-<command>: node .
+<worker>: <node .>
