@@ -35,8 +35,8 @@ client.distube = new DisTube(client, {
 
 
 // Variables by storage
-const TOKEN = important.token || process.env.TOKEN
-const CLIENT_ID = important.client_id || process.env.CLIENT_ID
+const TOKEN = process.env.TOKEN || important.token
+const CLIENT_ID = process.env.CLIENT_ID || important.client_id
 
 
 
