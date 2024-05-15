@@ -12,11 +12,13 @@ const { commandHandler, client } = require('./handler.js')
 
 
 
+
+
+
 // Music Player
 const { DisTube } = require('distube')
 const { YtDlpPlugin } = require('@distube/yt-dlp');
-const internal = require('stream');
-const { sodium_add } = require('sodium-native');
+
 
 client.distube = new DisTube(client, {
     leaveOnStop: false,
@@ -33,8 +35,8 @@ client.distube = new DisTube(client, {
 
 
 // Variables by storage
-const TOKEN = important.token
-const CLIENT_ID = important.client_id
+const TOKEN = important.token || process.env.TOKEN
+const CLIENT_ID = important.client_id || process.env.CLIENT_ID
 
 
 
