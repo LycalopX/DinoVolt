@@ -19,7 +19,7 @@ module.exports = {
 		const userVoiceChannel = interaction.member.voice.channel;
 
 		try {
-			client.distube
+			await client.distube
 				.play(userVoiceChannel, userMusic, {
 					interaction,
 					textChannel: interaction.channel,
