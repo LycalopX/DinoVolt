@@ -5,10 +5,29 @@ const Discord = require("discord.js");
 const fcs = require("./functions.js");
 
 
+
 // Constants
 const important = require("./important_shit.json");
-
 const { commandHandler, client } = require('./handler.js')
+
+
+
+// Music Player
+const { DisTube } = require('distube')
+const { YtDlpPlugin } = require('@distube/yt-dlp');
+const internal = require('stream');
+const { sodium_add } = require('sodium-native');
+
+client.distube = new DisTube(client, {
+    leaveOnStop: false,
+    emitNewSongOnly: true,
+    emitAddSongWhenCreatingQueue: false,
+    emitAddListWhenCreatingQueue: false,
+    plugins: [
+        new YtDlpPlugin()
+    ]
+})
+
 
 
 
@@ -26,27 +45,27 @@ const rest = new Discord.REST({ version: '10' }).setToken(TOKEN);
 // So, we gotta periodically turn the slash command updater off, otherwise, discord does not update commands, like, ever.
 const ver = 0;
 
-    (async () => {
+(async () => {
 
-        if (ver == 0) {
-            await commandHandler();
-            console.log("\nNão atualizando comandos slash 🗡️")
+    if (ver == 0) {
+        await commandHandler();
+        console.log("\nNão atualizando comandos slash 🗡️")
 
-        } else {
-            const commands = await commandHandler();
+    } else {
+        const commands = await commandHandler();
 
-            try {
-                console.log('\nInicializando os comandos slash 🗡️');
+        try {
+            console.log('\nInicializando os comandos slash 🗡️');
 
-                await rest.put(Discord.Routes.applicationCommands(CLIENT_ID), { body: commands });
+            await rest.put(Discord.Routes.applicationCommands(CLIENT_ID), { body: commands });
 
-                console.log('Recarregou-se com sucesso os comandos do aplicativo.');
-            } catch (error) {
-                console.error(error);
-            }
-
+            console.log('Recarregou-se com sucesso os comandos do aplicativo.');
+        } catch (error) {
+            console.error(error);
         }
-    })();
+
+    }
+})();
 
 
 
@@ -87,6 +106,7 @@ client.on('interactionCreate', async interaction => {
 
     try {
         await command.execute(interaction, client);
+
     } catch (error) {
         console.error(error);
         if (interaction.replied || interaction.deferred) {
@@ -126,6 +146,38 @@ fs.readFile('./storage/data.json', 'utf8', function readFileCallback(err, data) 
         fs.writeFileSync('./storage/data.json', soul);
     }
 });
+
+
+// EVENTOS - Distube
+
+(async () => {
+
+    try {
+        client.distube
+            .on("playSong", async (interaction) => {
+
+                const queue = client.distube.getQueue(interaction)
+                const song = queue.songs[0]
+
+                const glitchedcat = client.emojis.cache.get("1234961134868758539");
+                const dancinparrot = client.emojis.cache.get("1234961203709874326")
+
+                var embededMessage = await
+                    fcs.embed("3364FF", `${glitchedcat} Tocando: ${song.name} - Duração: ${song.formattedDuration} ${glitchedcat}`, null, null, 
+                    `${dancinparrot} Pedido por: ${song.user} ${dancinparrot}`)
+
+                interaction.textChannel.send({ embeds: [embededMessage] })
+            });
+    } catch (e) {
+
+        console.log(e)
+    }
+
+})();
+
+
+
+
 
 
 fcs.meth()

@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fcs = require('../../functions');
 
 // Command
 module.exports = {
@@ -7,7 +8,21 @@ module.exports = {
 		.setName("stop")
 		.setDescription('Stops the command, havent been able to deal with this more'),
 
-	async execute(interaction) {
-        interaction.reply("bruh")
+		category: "music",
+
+	async execute(interaction, client) {
+		
+		var EmbedErr = await fcs.embed("FF0000", "Não tem nada na *queue* no momento!")
+		var EmbedStop = await fcs.embed("FF0000", "Parou!")
+		
+		const queue = client.distube.getQueue(interaction)
+
+		if (!queue)  {
+			return interaction.reply({ embeds: [ EmbedErr ]})
+		}
+
+		queue.stop()
+		interaction.reply({ embeds: [ EmbedStop ]})
+
 	},
 };

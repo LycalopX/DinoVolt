@@ -1,23 +1,19 @@
 const Discord = require('discord.js');
 const fcs = require('../../functions.js')
 
+
+// COMMANDS
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 
-		.setName("play")
-		.setDescription('Toca uma música no seu canal do discord.')
-
-		.addStringOption(option =>
-			option
-				.setName('music')
-				.setDescription('Qual música você quer que o bot toque (Pode ser um URL)')),
-		category: "music",
+		.setName("rickroll")
+		.setDescription('Dá um rickroll na pessoa'),
 
 	async execute(interaction, client) {
 
-		const userMusic = interaction.options.getString('music')
+		const userMusic = "rickroll"
 		const userVoiceChannel = interaction.member.voice.channel;
-
+        
 		try {
 			client.distube
 				.play(userVoiceChannel, userMusic, {

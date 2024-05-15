@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
-// Command
+
+// COMMANDS
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 
@@ -17,7 +18,8 @@ module.exports = {
 	},
 };
 
-// Event
+
+// EVENTS
 const { Events } = require('discord.js');
 
 module.exports = {
