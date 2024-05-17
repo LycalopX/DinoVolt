@@ -3,13 +3,14 @@
 const fs = require('fs')
 const Discord = require("discord.js");
 const fcs = require("./functions.js");
+const mongo = require(`./mongo`)
 
 
 
 // Constants
 const { commandHandler, client } = require('./handler.js')
-var token = ""
-var client_id = ""
+var token = ""; var client_id = ""
+client.cache = new Discord.Collection();
 
 
 
@@ -57,14 +58,32 @@ const rest = new Discord.REST({ version: '10' }).setToken(TOKEN);
 // So, we gotta periodically turn the slash command updater off, otherwise, discord does not update commands, like, ever.
 const ver = 0;
 
+// Connecting to the database, and setting the slah commands
 (async () => {
 
+    // MongoDB
+    await mongo().then(async mongoose => {
+        try {
+            console.log('\nConectado ao Mongo! 🌿');
+
+            client.cache = await LoadFullDataBase(mongoose)
+            //tries to run code
+
+        }
+        finally {
+            // will always run
+            mongoose.connection.close()
+        }
+    })
+
+
+    const commands = await commandHandler();
+
     if (ver == 0) {
-        await commandHandler();
-        console.log("\nNão atualizando comandos slash 🗡️")
+        commands;
+        console.log("Não atualizando comandos slash 🗡️")
 
     } else {
-        const commands = await commandHandler();
 
         try {
             console.log('\nInicializando os comandos slash 🗡️');
@@ -85,8 +104,9 @@ const ver = 0;
 
 // Ligando o bot!
 client.on('ready', () => {
-    console.log(`Acordando sob comando 💻`);
-    console.log(`DinoVolt acorda 🔥`);
+    console.log(
+        `\nSilenciosamente 💻
+Dinovolt acorda 🔥`);
 });
 
 
@@ -133,6 +153,9 @@ client.on('interactionCreate', async interaction => {
 
 // EVENTO: Enviar mensagem
 client.on('messageCreate', async message => {
+    const file = require("./events/messageCreate/messageCreate.js");
+
+    file.execute(message, client);
 })
 
 
@@ -142,10 +165,8 @@ client.login(TOKEN);
 
 
 // BOT RESETS UPDATER
-fs.readFile('./storage/data.json', 'utf8', function readFileCallback(err, data) {
+fs.readFile('./cache/data.json', 'utf8', function readFileCallback(err, data) {
     if (err) {
-        console.log("bruh\n");
-
         console.log(err);
     }
     else {
@@ -153,15 +174,14 @@ fs.readFile('./storage/data.json', 'utf8', function readFileCallback(err, data) 
         var soul = JSON.parse(data);
 
         soul.resets++
-        soul = JSON.stringify(soul)
 
-        fs.writeFileSync('./storage/data.json', soul);
+        fs.writeFileSync('./cache/data.json', JSON.stringify(soul));
+        console.log("Resets: " + soul.resets)
     }
 });
 
 
 // EVENTOS - Distube
-
 (async () => {
 
     try {
@@ -188,6 +208,23 @@ fs.readFile('./storage/data.json', 'utf8', function readFileCallback(err, data) 
 })();
 
 
+
+async function LoadFullDataBase(mongoose) {
+
+    const cache = {};
+
+    const collections = await mongoose.connection.db.listCollections().toArray()
+
+    for (i = 0; i< collections.length; i++) {
+        var name = collections[i].name
+        documents = await mongoose.connection.db.collection(name).find({}).toArray()
+
+        cache[collections[i].name] = documents
+    }
+
+    return cache;
+
+}
 
 
 
