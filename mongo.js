@@ -1,18 +1,26 @@
 const mongoose = require('mongoose')
-const important_shit = require('./important_shit.json')
 
-var t = ""
 
 
 module.exports = async () => {
 
+    mongopath = ""
+
     // Heroku dependancy
-    if (process.env.TOKEN) {
-        t += process.env.mongoPath
+    if (process.env.mongoPath) {
+        mongopath += process.env.mongoPath
     } else {
+        var important = require("./important_shit.json");
+
+        mongopath += important.token
     }
 
-    var mongoPath = process.env.mongoPath || important_shit.mongoPath
+
+
+
+    // Variables by storage
+    const mongoPath = process.env.mongoPath || important.mongoPath
+
     await mongoose.connect(mongoPath)
 
     return mongoose
