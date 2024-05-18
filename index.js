@@ -120,10 +120,10 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
 
-    const command = interaction.client.commands.get(interaction.commandName);
+    const command = await interaction.client.commands.get(interaction.commandName);
 
     if (!command) {
-        interaction.reply("Oops, parece que não há nenhum comando com esse nome! \nQue tal tentar outro?")
+        await interaction.reply("Oops, parece que não há nenhum comando com esse nome! \nQue tal tentar outro?")
 
             // After a short while, delete it
             .then(interaction => {

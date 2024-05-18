@@ -15,6 +15,7 @@ module.exports = {
 
 	async execute(interaction) {
         // Whatever
+		const reason = interaction.options.getString('reason')
 	},
 };
 
@@ -28,6 +29,5 @@ module.exports = {
 	execute(argument, client) {
 		console.log(`Ready! Logged in as ${client.user.tag}`);
 		
-		const reason = interaction.options.getString('reason')
 	},
 };
