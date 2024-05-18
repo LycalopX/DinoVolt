@@ -7,14 +7,12 @@ module.exports = {
 
         // So, first we gotta check if the person has a databank
         const cache = client.cache;
-        console.log(cache)
 
         const userSchema = require("../../../schemes/user")
 
         var result = cache.users.filter(obj => {
             return obj._id === message.author.id
         })
-
 
 
         if (result.length == 0) {
