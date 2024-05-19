@@ -154,6 +154,54 @@ async function getData(schema, id) {
 
 
 
+async function errEmbed(title, description, thumbnail, image) {
+
+    const Embed = new Discord.EmbedBuilder();
+
+		Embed
+		.setColor("FF0000");
+
+	if (title) {
+		Embed
+		.setTitle(title)
+	}
+	if (description) {
+		Embed
+		.setDescription(description)
+	}
+	if (thumbnail) {
+		Embed
+		.setThumbnail(thumbnail)
+	}
+	if (image) {
+		Embed
+		.setImage(image)
+	}
+
+    return Embed;
+}
+
+async function createUser(client, user) {
+    const userSchema = require("./schemes/user")
+
+    const structure = {
+        _id: user.id,
+        coins: 0,
+        points: {
+            rightQuizAnswers: 0,
+            bruteExp: 0,
+            exp: 0,
+        },
+        dateArrived: new Date(),
+        words: 0,
+    }
+
+    await newData(userSchema, structure)
+
+    client.cache.users.push(structure)
+
+}
 
 
-module.exports = { meth, sum, embed, updateData, newData, deleteData, getData }
+
+module.exports = { meth, sum, embed, updateData, newData, deleteData, getData, errEmbed, createUser }

@@ -31,11 +31,16 @@ async function findUrl(client, user) {
     })
 
 
+    if (!result) {
+        await fcs.createUser(client, user)
+    }
+
     // Link para obter imagem
     var link = `https://discord-avatar.com/en/user/?id=${user.id}`
 
-
     if (!result[0].link) {
+        console.log("sua mae")
+
         await fetch(link)
             .then(response => {
                 if (!response.ok) {
@@ -159,12 +164,23 @@ module.exports = {
 
 
                     if (x) {
-                        user1.send({
-                            embeds: [await embedLayout(`${user1.user.username}, morreu!`,
-                                `${emoji1} Você moleu infelizmente, para jogar novamente peça para alguém te desbanir :( ${emoji2}`,
-                                imageUrl1, "#5833FF"
-                            )]
-                        });
+                        try {
+                            user1.send({
+                                embeds: [await embedLayout(`${user1.user.username}, morreu!`,
+                                    "Moleu infelizmente, para jogar novamente peça para alguém te desbanir :(",
+                                    imageUrl1, "#5833FF"
+                                )]
+                            });
+
+                            await user1.ban()
+
+                        } catch (e) {
+                            interaction.followUp({ embeds: [await fcs.errEmbed("Banimento cancelado", `Infelizmente, devido a algum erro no sistema, senhor ${user1} se safou dessa vez`
+                            )]})
+                            console.log(e)
+
+                            return
+                        }
 
                         interaction.followUp({
                             embeds: [await embedLayout(`${user1.user.username} Morreu!!!`,
@@ -183,12 +199,23 @@ module.exports = {
                     }
 
                     if (y) {
-                        user1.send({
-                            embeds: [await embedLayout(`${user2.user.username}, morreu!`,
-                                `${emoji1} Você moleu infelizmente, para jogar novamente peça para alguém te desbanir :( ${emoji2}`,
-                                imageUrl2, "FF9633"
-                            )]
-                        });
+                        try {
+                            user1.send({
+                                embeds: [await embedLayout(`${user1.user.username}, morreu!`,
+                                    "Moleu infelizmente, para jogar novamente peça para alguém te desbanir :(",
+                                    imageUrl1, "#5833FF"
+                                )]
+                            });
+
+                            await user2.ban()
+
+                        } catch (e) {
+                            interaction.followUp({ embeds: [await fcs.errEmbed("Banimento cancelado", `Infelizmente, devido a algum erro no sistema, senhor ${user1} se safou dessa vez`
+                            )]})
+                            console.log(e)
+
+                            return
+                        }
 
                         interaction.followUp({
                             embeds: [await embedLayout(`${user2.username} Morreu!!!`,
@@ -207,11 +234,14 @@ module.exports = {
                     }
 
                 } else {
+
                     const embed4 = await fcs.embed("#E6E6E4", "Haha, fraco", null, null, `${user2} te deixou na mão mano kkkkkkkkkkkkk`)
                     interaction.followUp({ embeds: [embed4] });
                 }
             })
             .catch(async collected => {
+                console.log(collected)
+
                 const embed2 = await fcs.embed("#E6E6E4", "Não aceitou a tempo :/", null, null, `Ou ele não viu o duelo a tempo, ou alguém te deixou na mão ${user1} :/`)
                 interaction.followUp({ embeds: [embed2] })
             });

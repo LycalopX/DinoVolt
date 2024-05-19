@@ -30,6 +30,13 @@ async function findUrl(client, user) {
         return obj._id === user.id
     })
 
+    if (!result) {
+        await fcs.createUser(client, user)
+    }
+    
+    var result = cache.users.filter(obj => {
+        return obj._id === user.id
+    })
 
     // Link para obter imagem
     var link = `https://discord-avatar.com/en/user/?id=${user.id}`
@@ -147,12 +154,24 @@ module.exports = {
 
 
                     if (x) {
-                        user1.send({
-                            embeds: [await embedLayout(`${user1.user.username}, morreu!`,
-                                "Moleu infelizmente, para jogar novamente peça para alguém te desbanir :(",
-                                imageUrl1, "#5833FF"
-                            )]
-                        });
+
+                        try {
+                            user1.send({
+                                embeds: [await embedLayout(`${user1.user.username}, morreu!`,
+                                    "Moleu infelizmente, para jogar novamente peça para alguém te desbanir :(",
+                                    imageUrl1, "#5833FF"
+                                )]
+                            });
+
+                            await user1.ban()
+
+                        } catch (e) {
+                            interaction.followUp({ embeds: [await fcs.errEmbed("Banimento cancelado", `Infelizmente, devido a algum erro no sistema, senhor ${user1} se safou dessa vez`
+                            )]})
+                            console.log(e)
+
+                            return
+                        }
 
                         interaction.followUp({
                             embeds: [await embedLayout(`${user1.user.username} Morreu!!!`,
