@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fcs = require("../../functions")
 const fetch = require("node-fetch")
-const { JSDOM }  = require("jsdom")
+const { JSDOM } = require("jsdom")
 
 
 
@@ -24,7 +24,7 @@ const sleep = (duration) => {
 
 async function findUrl(client, user) {
 
-    const cache = client.cache
+    var cache = client.cache
 
     var result = cache.users.filter(obj => {
         return obj._id === user.id
@@ -32,11 +32,12 @@ async function findUrl(client, user) {
 
     if (!result) {
         await fcs.createUser(client, user)
+
+        cache = client.cache
+        result = cache.users.filter(obj => {
+            return obj._id === user.id
+        })
     }
-    
-    var result = cache.users.filter(obj => {
-        return obj._id === user.id
-    })
 
     // Link para obter imagem
     var link = `https://discord-avatar.com/en/user/?id=${user.id}`
@@ -120,7 +121,7 @@ module.exports = {
                     const embed3 = await fcs.embed("#E6E6E4", "Ok! Você pediu!", null, null, `Vamos rodar a roleta, ${user1} vamos??? :/`)
 
                     interaction.followUp({ embeds: [embed3] });
-					
+
 
 
                     var embed5 = await fcs.embed("#E6E6E4", `Você irá morrer??`, null, null, `Segundos para primeiro tiro: 3`, null, "https://i.imgur.com/w2Vb6RD.gif");
@@ -166,8 +167,10 @@ module.exports = {
                             await user1.ban()
 
                         } catch (e) {
-                            interaction.followUp({ embeds: [await fcs.errEmbed("Banimento cancelado", `Infelizmente, devido a algum erro no sistema, senhor ${user1} se safou dessa vez`
-                            )]})
+                            interaction.followUp({
+                                embeds: [await fcs.errEmbed("Banimento cancelado", `Infelizmente, devido a algum erro no sistema, senhor ${user1} se safou dessa vez`
+                                )]
+                            })
                             console.log(e)
 
                             return
@@ -195,7 +198,7 @@ module.exports = {
                 }
             })
             .catch(async collected => {
-				console.log(collected)
+                console.log(collected)
 
                 const embed2 = await fcs.embed("#B3FCB5", "Não aceitou a tempo :/", null, null, "Desculpa, por mais que eu queria muito girar a roleta, eu não posso se você não me responder!")
                 interaction.followUp({ embeds: [embed2] })

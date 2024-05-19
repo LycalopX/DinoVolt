@@ -174,6 +174,7 @@ fs.readFile('./cache/data.json', 'utf8', function readFileCallback(err, data) {
         var soul = JSON.parse(data);
 
         soul.resets++
+        soul.lastReset = new Date()
 
         fs.writeFileSync('./cache/data.json', JSON.stringify(soul));
         console.log("Resets: " + soul.resets)
