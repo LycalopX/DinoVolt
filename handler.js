@@ -13,6 +13,8 @@ const client = new Discord.Client({
         Discord.GatewayIntentBits.GuildMessages,
         Discord.GatewayIntentBits.GuildVoiceStates,
         Discord.GatewayIntentBits.MessageContent,
+        Discord.GatewayIntentBits.GuildPresences,
+        Discord.GatewayIntentBits.GuildMessageReactions
     ]
 });
 

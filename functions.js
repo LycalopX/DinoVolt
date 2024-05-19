@@ -80,7 +80,7 @@ async function updateData(schema, newJSONObject) {
             console.log(err)
 
         } finally {
-            mongoose.connection.close()
+            await mongoose.connection.close()
         }
     })
 }
@@ -104,7 +104,7 @@ async function newData(schema, newJSONObject) {
             console.log(err)
 
         } finally {
-            mongoose.connection.close()
+            await mongoose.connection.close()
         }
     })
 }
@@ -124,7 +124,7 @@ async function deleteData(schema, id) {
             console.log(err)
 
         } finally {
-            mongoose.connection.close()
+            await mongoose.connection.close()
             return
         }
     })
@@ -142,7 +142,7 @@ async function getData(schema, id) {
             }
 
         } finally {
-            mongoose.connection.close()
+            await mongoose.connection.close()
         }
     })
 

@@ -72,7 +72,7 @@ const ver = 0;
         }
         finally {
             // will always run
-            mongoose.connection.close()
+            await mongoose.connection.close()
         }
     })
 
