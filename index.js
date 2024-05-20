@@ -20,7 +20,8 @@ const { DisTube } = require('distube')
 const { YtDlpPlugin } = require('@distube/yt-dlp');
 
 client.distube = new DisTube(client, {
-    leaveOnStop: false,
+    leaveOnStop: true,
+    leaveOnFinish: false,
     emitNewSongOnly: true,
     emitAddSongWhenCreatingQueue: false,
     emitAddListWhenCreatingQueue: false,
