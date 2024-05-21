@@ -331,5 +331,10 @@ async function beautifulTime(t, yearb, monthb, dayb, hourb, minuteb, secondb, mi
 }
 
 
+const sleep = (duration) => {
+    return new Promise(resolve => setTimeout(resolve, duration))
+}
 
-module.exports = { meth, sum, embed, updateData, newData, deleteData, getData, errEmbed, createUser, findUrl, beautifulTime }
+
+
+module.exports = { meth, sum, embed, updateData, newData, deleteData, getData, errEmbed, createUser, findUrl, beautifulTime, sleep }

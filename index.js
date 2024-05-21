@@ -4,6 +4,8 @@ const fs = require('fs')
 const Discord = require("discord.js");
 const fcs = require("./functions.js");
 const mongo = require(`./mongo`)
+const fetch = require("node-fetch")
+const { JSDOM } = require("jsdom")
 
 
 
@@ -18,6 +20,9 @@ client.cache = new Discord.Collection();
 // Music Player
 const { DisTube } = require('distube')
 const { YtDlpPlugin } = require('@distube/yt-dlp');
+const { count } = require('console');
+const user = require('./schemes/user.js');
+const manga = require('./schemes/manga.js');
 
 client.distube = new DisTube(client, {
     leaveOnStop: true,
@@ -74,6 +79,8 @@ const ver = 0;
         finally {
             // will always run
             await mongoose.connection.close()
+
+            await runF(client)
         }
     })
 
@@ -217,7 +224,7 @@ async function LoadFullDataBase(mongoose) {
 
     const collections = await mongoose.connection.db.listCollections().toArray()
 
-    for (i = 0; i< collections.length; i++) {
+    for (i = 0; i < collections.length; i++) {
         var name = collections[i].name
         documents = await mongoose.connection.db.collection(name).find({}).toArray()
 
@@ -228,6 +235,76 @@ async function LoadFullDataBase(mongoose) {
 
 }
 
+async function checkUrl(url, client) {
+
+    const arrayUrl = ["https://sm.ign.com/ign_br/screenshot/default/capa-jujutsu-kaisen_kfzu.png",
+        "https://pop.proddigital.com.br/wp-content/uploads/sites/8/2023/11/01-66.jpg",
+        "https://imgsrv.crunchyroll.com/cdn-cgi/image/format=auto,fit=contain,width=1200,height=675,quality=85/catalog/crunchyroll/8b7f5847f9b97f921e41d4ef59fd2d79.jpe",
+        "https://noticiasdeanime.com.br/wp-content/uploads/2024/01/jujutsu-kaisen-manga-vs-anime.webp",
+        "https://pbs.twimg.com/media/F-DEr1gXsAERaEL?format=jpg&name=large",
+        "https://inbetweendrafts.com/wp-content/uploads/2023/10/IMG_0267.jpeg",
+        "https://a.storyblok.com/f/178900/1920x1080/9dcf1a9557/jujutsu-kaisen-s2-still.jpg"]
+
+
+    const randomUrl = arrayUrl[Math.floor(Math.random() * 7)]
+
+
+
+    const mangaScheme = require("./schemes/manga.js")
+    var txt = `**Os capítulos mais recentes são:** \n\n`
+    var chapter, url;
+
+    await fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Get the response as text (HTML content)
+        })
+        .then(html => {
+            var count = 0
+
+            for (i = 300; count < 5; i--) {
+
+                if (html.includes(`jujutsu-kaisen-chapter-${i}`)) {
+                    txt += `Capítulo **${i}**`;
+
+                    if (count == 0) {
+                        if (client.cache["mangas"][0].count == i) {
+                            break;
+                        }
+
+                        txt += ` 🔥`
+                        chapter = i;
+                        url = `https://ww2.jujustukaisen.com/manga/jujutsu-kaisen-chapter-${chapter}/`
+                    }
+                    txt += "\n"
+                    count++
+                }
+
+            }
+        })
+
+    if (!chapter) {
+        return;
+    }
+
+    fcs.newData(mangaScheme, { count: chapter })
+    client.cache["mangas"][0].count = chapter
+
+    var user = client.users.cache.get('444601920791904276')
+    user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE JUJUTSU KAISEN", url, null, txt, null, randomUrl)] })
+}
+
+async function runF(client) {
+
+    for (i = 0; i >= 0; i++) {
+
+        await fcs.sleep(600 * 1000)
+        await checkUrl("https://ww2.jujustukaisen.com/", client)
+    }
+
+}
 
 
 
