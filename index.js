@@ -80,7 +80,7 @@ const ver = 0;
             // will always run
             await mongoose.connection.close()
 
-            await runF(client)
+            runF(client)
         }
     })
 
@@ -285,12 +285,18 @@ async function checkUrl(url, client) {
             }
         })
 
-    if (!chapter) {
-        return;
-    }
 
     fcs.newData(mangaScheme, { count: chapter })
     client.cache["mangas"][0].count = chapter
+
+    var usersid = [
+        "444601920791904276", "558417008262381607"
+    ]
+
+    usersid.forEach(async userid => {
+        var user = client.users.cache.get(userid)
+        user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE JUJUTSU KAISEN", url, null, txt, null, randomUrl)] })
+    })
 
     var user = client.users.cache.get('444601920791904276')
     user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE JUJUTSU KAISEN", url, null, txt, null, randomUrl)] })
