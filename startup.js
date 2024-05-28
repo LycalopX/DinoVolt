@@ -105,6 +105,10 @@ module.exports = {
                 }
             })
 
+        if (!chapter) {
+            return
+        }
+
 
         fcs.newData(mangaScheme, { count: chapter })
         client.cache["mangas"][0].count = chapter
