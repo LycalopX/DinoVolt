@@ -110,16 +110,15 @@ module.exports = {
         client.cache["mangas"][0].count = chapter
 
         var usersid = [
-            "444601920791904276", "558417008262381607"
+            "444601920791904276"
         ]
 
-        usersid.forEach(async userid => {
+        for (i = 0; i < usersid.length; i++) {
+            var userid = usersid[i];
+
             var user = client.users.cache.get(userid)
             user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE JUJUTSU KAISEN", url, null, txt, null, randomUrl)] })
-        })
-
-        var user = client.users.cache.get('444601920791904276')
-        user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE JUJUTSU KAISEN", url, null, txt, null, randomUrl)] })
+        }
 
 
     },
