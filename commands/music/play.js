@@ -70,6 +70,10 @@ module.exports = {
 				var num = Number(message.content) - 1
 
 				if (num < 0 || num > 15 || num % 1 != 0) {
+					await interaction.deferReply();
+					// Do other async or time-consuming operations
+					// and when done:
+
 					return interaction.followUp({ embeds: [await fcs.errEmbed("Essa música não foi dada como opção")] })
 				}
 
