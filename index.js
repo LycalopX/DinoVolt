@@ -178,8 +178,10 @@ async function runF(client) {
 
     for (i = 0; i >= 0; i++) {
 
-        await fcs.sleep(600 * 1000)
-        await startup.jjk("https://ww2.jujustukaisen.com/", client)
+        await startup.oshinoko("https://readoshino.com/", client);
+        await startup.checkLoLplayers(client);
+
+        await fcs.sleep(30 * 60 * 1000) // 30 minutos
     }
 
 }

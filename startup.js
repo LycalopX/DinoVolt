@@ -10,6 +10,7 @@ const fetch = require("node-fetch")
 
 
 module.exports = {
+
     async distube(client) {
 
         // Music Player
@@ -54,20 +55,16 @@ module.exports = {
     },
 
 
-    async jjk(url, client) {
+    async oshinoko(url, client) {
+
+        console.log("estou funcionando")
 
         const arrayUrl = [
-            "https://sm.ign.com/ign_br/screenshot/default/capa-jujutsu-kaisen_kfzu.png",
-            "https://pop.proddigital.com.br/wp-content/uploads/sites/8/2023/11/01-66.jpg",
-            "https://imgsrv.crunchyroll.com/cdn-cgi/image/format=auto,fit=contain,width=1200,height=675,quality=85/catalog/crunchyroll/8b7f5847f9b97f921e41d4ef59fd2d79.jpe",
-            "https://noticiasdeanime.com.br/wp-content/uploads/2024/01/jujutsu-kaisen-manga-vs-anime.webp",
-            "https://pbs.twimg.com/media/F-DEr1gXsAERaEL?format=jpg&name=large",
-            "https://inbetweendrafts.com/wp-content/uploads/2023/10/IMG_0267.jpeg",
-            "https://a.storyblok.com/f/178900/1920x1080/9dcf1a9557/jujutsu-kaisen-s2-still.jpg"]
+            "https://a.storyblok.com/f/178900/2865x4047/501b5563cc/oshi-no-ko-staffel-2-visual.jpeg/m/filters:quality(95)format(webp)",
+            "https://preview.redd.it/ojc1mumucfsc1.jpeg?width=640&crop=smart&auto=webp&s=eec8ef46572193d63226eb62bce683286f9fd49a"]
 
 
-        const randomUrl = arrayUrl[Math.floor(Math.random() * 7)]
-
+        const randomUrl = arrayUrl[Math.floor(Math.random() * (arrayUrl.length - 1))]
 
 
         const mangaScheme = require("./schemes/manga.js")
@@ -86,7 +83,7 @@ module.exports = {
 
                 for (i = 300; count < 5; i--) {
 
-                    if (html.includes(`jujutsu-kaisen-chapter-${i}`)) {
+                    if (html.includes(`oshi-no-ko-chapter-${i}`)) {
                         txt += `Capítulo **${i}**`;
 
                         if (count == 0) {
@@ -96,7 +93,7 @@ module.exports = {
 
                             txt += ` 🔥`
                             chapter = i;
-                            url = `https://ww2.jujustukaisen.com/manga/jujutsu-kaisen-chapter-${chapter}/`
+                            url = `https://readoshino.com/manga/oshi-no-ko-chapter-${chapter}/`
                         }
                         txt += "\n"
                         count++
@@ -114,14 +111,15 @@ module.exports = {
         client.cache["mangas"][0].count = chapter
 
         var usersid = [
-            "444601920791904276"
+            "444601920791904276",
+            "462421774714535937"
         ]
 
         for (i = 0; i < usersid.length; i++) {
             var userid = usersid[i];
 
             var user = client.users.cache.get(userid)
-            user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE JUJUTSU KAISEN", url, null, txt, null, randomUrl)] })
+            user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE OSHI NO KO", url, null, txt, null, randomUrl)] })
         }
 
 
@@ -147,5 +145,14 @@ module.exports = {
         });
 
 
+    },
+
+    async checkLoLplayers(client) {
+
+        const list = client.guilds.cache.get("881892954803941396"); 
+        list.members.cache.forEach(member => console.log(member.user.username)); 
+
     }
+
+
 }
