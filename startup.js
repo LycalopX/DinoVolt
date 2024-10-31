@@ -4,6 +4,7 @@ const Discord = require("discord.js");
 const fcs = require("./functions.js");
 const mongo = require(`./mongo`)
 const fetch = require("node-fetch")
+const cron = require("cron")
 
 
 
@@ -18,8 +19,6 @@ module.exports = {
         const { YtDlpPlugin } = require('@distube/yt-dlp');
 
         client.distube = new DisTube(client, {
-            leaveOnStop: true,
-            leaveOnFinish: false,
             emitNewSongOnly: true,
             emitAddSongWhenCreatingQueue: false,
             emitAddListWhenCreatingQueue: false,
@@ -150,7 +149,9 @@ module.exports = {
     async checkLoLplayers(client) {
 
         const list = client.guilds.cache.get("881892954803941396"); 
-        list.members.cache.forEach(member => console.log(member.user.username)); 
+        list.members.cache.forEach(member => {
+            
+        }); 
 
     }
 

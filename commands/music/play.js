@@ -87,8 +87,8 @@ module.exports = {
 						textChannel: interaction.channel,
 						member: interaction.member,
 					})
-					.catch(err => {
-						interaction.reply(err.message)
+					.catch(async err => {
+						await interaction.followUp(err.message)
 						return
 					})
 
