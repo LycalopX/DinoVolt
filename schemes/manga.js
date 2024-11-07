@@ -5,6 +5,7 @@ const { reqString, reqNumber, reqBoolean, reqArray } = require('./zschema_templa
 
 // O ID deve ser <ID da Guild><ID do autor>, visto que, por exemplo, a data, muda conforme a guild muda
 const MangaCount = mongoose.Schema({
+  _id: reqNumber,
   count: reqNumber
 })
 

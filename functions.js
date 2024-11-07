@@ -151,6 +151,26 @@ async function getData(schema, id) {
 }
 
 
+// Guild info update
+async function setNewData(schema, newJSONObject) {
+    // Atualizar as configs...
+    await mongo().then(async (mongoose) => {
+        try {
+            await new schema(
+                newJSONObject
+            ).save();
+
+        } catch (err) {
+            console.log(err)
+
+        } finally {
+            await mongoose.connection.close()
+        }
+    })
+}
+
+
+
 
 
 
@@ -337,4 +357,4 @@ const sleep = (duration) => {
 
 
 
-module.exports = { meth, sum, embed, updateData, newData, deleteData, getData, errEmbed, createUser, findUrl, beautifulTime, sleep }
+module.exports = { meth, sum, embed, updateData, newData, deleteData, getData, errEmbed, createUser, findUrl, beautifulTime, sleep, setNewData }

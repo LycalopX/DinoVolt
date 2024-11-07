@@ -6,6 +6,10 @@ const mongo = require(`./mongo`)
 const fetch = require("node-fetch")
 const cron = require("cron")
 
+const arrayUrl = [
+    "https://a.storyblok.com/f/178900/2865x4047/501b5563cc/oshi-no-ko-staffel-2-visual.jpeg/m/filters:quality(95)format(webp)",
+    "https://preview.redd.it/ojc1mumucfsc1.jpeg?width=640&crop=smart&auto=webp&s=eec8ef46572193d63226eb62bce683286f9fd49a"]
+
 
 
 
@@ -53,22 +57,14 @@ module.exports = {
 
     },
 
-
-    async oshinoko(url, client) {
-
-        console.log("estou funcionando")
-
-        const arrayUrl = [
-            "https://a.storyblok.com/f/178900/2865x4047/501b5563cc/oshi-no-ko-staffel-2-visual.jpeg/m/filters:quality(95)format(webp)",
-            "https://preview.redd.it/ojc1mumucfsc1.jpeg?width=640&crop=smart&auto=webp&s=eec8ef46572193d63226eb62bce683286f9fd49a"]
-
+    async checkManga(url, client, usersId, arrayUrl, chapterName, fullurl, newChapText, idNumber) {
 
         const randomUrl = arrayUrl[Math.floor(Math.random() * (arrayUrl.length - 1))]
-
 
         const mangaScheme = require("./schemes/manga.js")
         var txt = `**Os capítulos mais recentes são:** \n\n`
         var chapter, url;
+
 
         await fetch(url)
             .then(response => {
@@ -82,17 +78,23 @@ module.exports = {
 
                 for (i = 300; count < 5; i--) {
 
-                    if (html.includes(`oshi-no-ko-chapter-${i}`)) {
+                    if (html.includes(`${chapterName}${i}`)) {
                         txt += `Capítulo **${i}**`;
 
                         if (count == 0) {
-                            if (client.cache["mangas"][0].count == i) {
-                                break;
+                            if (client.cache["mangas"][idNumber - 1]) {
+
+                                if (client.cache["mangas"][idNumber - 1].count == i) {
+                                    break;
+                                }
+
+                            } else {
+                                client.cache["mangas"][idNumber - 1] = { count: 0, _id: idNumber }
                             }
 
                             txt += ` 🔥`
                             chapter = i;
-                            url = `https://readoshino.com/manga/oshi-no-ko-chapter-${chapter}/`
+                            url = `${fullurl}${chapter}/`
                         }
                         txt += "\n"
                         count++
@@ -106,19 +108,15 @@ module.exports = {
         }
 
 
-        fcs.newData(mangaScheme, { count: chapter })
-        client.cache["mangas"][0].count = chapter
+        fcs.newData(mangaScheme, { _id: idNumber, count: chapter })
+        client.cache["mangas"][idNumber - 1].count = chapter
 
-        var usersid = [
-            "444601920791904276",
-            "462421774714535937"
-        ]
 
-        for (i = 0; i < usersid.length; i++) {
-            var userid = usersid[i];
+        for (i = 0; i < usersId.length; i++) {
+            var userid = usersId[i];
 
             var user = client.users.cache.get(userid)
-            user.send({ embeds: [await fcs.embed("9C80E1", "NOVO CAPÍTULO DE OSHI NO KO", url, null, txt, null, randomUrl)] })
+            user.send({ embeds: [await fcs.embed("9C80E1", newChapText, url, null, txt, null, randomUrl)] })
         }
 
 

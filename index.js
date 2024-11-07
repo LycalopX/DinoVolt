@@ -178,8 +178,39 @@ async function runF(client) {
 
     for (i = 0; i >= 0; i++) {
 
-        await startup.oshinoko("https://readoshino.com/", client);
-        await startup.checkLoLplayers(client);
+        const oshinokoUrl = [
+            "https://a.storyblok.com/f/178900/2865x4047/501b5563cc/oshi-no-ko-staffel-2-visual.jpeg/m/filters:quality(95)format(webp)",
+            "https://preview.redd.it/ojc1mumucfsc1.jpeg?width=640&crop=smart&auto=webp&s=eec8ef46572193d63226eb62bce683286f9fd49a"]
+
+        const csmUrl = [
+            "https://static.wikia.nocookie.net/chainsaw-man/images/c/c0/ChainsawManVolume1.jpeg/revision/latest?cb=20210921233305&path-prefix=pt-br",
+            "https://d14d9vp3wdof84.cloudfront.net/image/589816272436/image_2a1p9dt3p13bd0mbhfqg08h067/-S897-FWEBP"]
+
+        const tbateUrl = [
+            "https://i.imgur.com/7aPT8MG.jpeg",
+            "https://i.imgur.com/zYayXc6.jpeg",
+            "https://i.imgur.com/A0WK4oP.jpeg"
+        ]
+
+        var usersId1 = [
+            "444601920791904276",
+            "462421774714535937"
+        ]
+        var usersId2 = [
+            "444601920791904276",
+        ]
+
+        // Oshi no Ko
+        await startup.checkManga("https://readoshino.com/", client, usersId1, oshinokoUrl, "oshi-no-ko-chapter-", "https://readoshino.com/manga/oshi-no-ko-chapter-",
+            "NOVO CAPÍTULO - OSHI NO KO", 1);
+
+        // TBATE
+        await startup.checkManga("https://thebeginningaftertheendmanga.com/", client, usersId1, tbateUrl, "the-beginning-after-the-end-chapter-", "https://thebeginningaftertheendmanga.com/manga/the-beginning-after-the-end-chapter-",
+            "NOVO CAPÍTULO - THE BEGINNING AFTER THE END", 3);
+
+        // Chainsaw Man
+        await startup.checkManga("https://readchainsaw-man.com/", client, usersId2, csmUrl, "chainsaw-man-chapter-", "https://readchainsaw-man.com/manga/chainsaw-man-chapter",
+            "NOVO CAPÍTULO - CHAINSAW MAN", 2);
 
         await fcs.sleep(30 * 60 * 1000) // 30 minutos
     }
