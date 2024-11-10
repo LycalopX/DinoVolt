@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fcs = require("../../functions");
-const localStorage = require("../../cache/data.json")
+const localStorage = require("../../database/data.json")
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

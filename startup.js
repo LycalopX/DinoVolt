@@ -6,12 +6,6 @@ const mongo = require(`./mongo`)
 const fetch = require("node-fetch")
 const cron = require("cron")
 
-const arrayUrl = [
-    "https://a.storyblok.com/f/178900/2865x4047/501b5563cc/oshi-no-ko-staffel-2-visual.jpeg/m/filters:quality(95)format(webp)",
-    "https://preview.redd.it/ojc1mumucfsc1.jpeg?width=640&crop=smart&auto=webp&s=eec8ef46572193d63226eb62bce683286f9fd49a"]
-
-
-
 
 
 module.exports = {
@@ -133,7 +127,7 @@ module.exports = {
     async updateResets() {
 
         // BOT RESETS UPDATER
-        fs.readFile('./cache/data.json', 'utf8', function readFileCallback(err, data) {
+        fs.readFile('./database/data.json', 'utf8', function readFileCallback(err, data) {
             if (err) {
                 console.log(err);
             }
@@ -144,7 +138,7 @@ module.exports = {
                 soul.resets++
                 soul.lastReset = new Date()
 
-                fs.writeFileSync('./cache/data.json', JSON.stringify(soul));
+                fs.writeFileSync('./database/data.json', JSON.stringify(soul));
                 console.log("Resets: " + soul.resets)
             }
         });
