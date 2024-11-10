@@ -63,60 +63,68 @@ module.exports = {
 
         const mangaScheme = require("./schemes/manga.js")
         var txt = `**Os capítulos mais recentes são:** \n\n`
-        var chapter, url;
+        
+        var chapter = 0;
 
 
-        await fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text(); // Get the response as text (HTML content)
-            })
-            .then(html => {
-                var count = 0
+        // In case the network error occurs
+        try {
 
-                for (i = 300; count < 5; i--) {
+            await fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
 
-                    if (html.includes(`${chapterName}${i}`)) {
-                        txt += `Capítulo **${i}**`;
+                    }
+                    return response.text(); // Get the response as text (HTML content)
+                })
+                .then(html => {
+                    var count = 0
 
-                        if (count == 0) {
-                            if (client.cache["mangas"][idNumber - 1]) {
+                    for (i = 300; count < 5; i--) {
 
-                                if (client.cache["mangas"][idNumber - 1].count == i) {
-                                    break;
+                        if (html.includes(`${chapterName}${i}`)) {
+                            txt += `Capítulo **${i}**`;
+
+                            if (count == 0) {
+                                if (client.cache["mangas"][idNumber - 1]) {
+
+                                    if (client.cache["mangas"][idNumber - 1].count == i) {
+                                        break;
+                                    }
+
+                                } else {
+                                    client.cache["mangas"][idNumber - 1] = { count: 0, _id: idNumber }
                                 }
 
-                            } else {
-                                client.cache["mangas"][idNumber - 1] = { count: 0, _id: idNumber }
+                                txt += ` 🔥`
+                                chapter = i;
+                                url = `${fullurl}${chapter}/`
                             }
-
-                            txt += ` 🔥`
-                            chapter = i;
-                            url = `${fullurl}${chapter}/`
+                            txt += "\n"
+                            count++
                         }
-                        txt += "\n"
-                        count++
+
                     }
+                })
 
-                }
-            })
+            if (!chapter) {
+                return
+            }
 
-        if (!chapter) {
-            return
-        }
-
-
-        fcs.newData(mangaScheme, { _id: idNumber, count: chapter })
-        client.cache["mangas"][idNumber - 1].count = chapter
+            fcs.newData(mangaScheme, { _id: idNumber, count: chapter })
+            client.cache["mangas"][idNumber - 1].count = chapter
 
 
-        for (i = 0; i < usersId.length; i++) {
-            var userid = usersId[i];
+            for (i = 0; i < usersId.length; i++) {
+                var userid = usersId[i];
 
-            var user = client.users.cache.get(userid)
-            user.send({ embeds: [await fcs.embed("9C80E1", newChapText, url, null, txt, null, randomUrl)] })
+                var user = client.users.cache.get(userid)
+                user.send({ embeds: [await fcs.embed("9C80E1", newChapText, url, null, txt, null, randomUrl)] })
+            }
+
+        } catch (e) { 
+            console.log(e);
         }
 
 
@@ -146,10 +154,10 @@ module.exports = {
 
     async checkLoLplayers(client) {
 
-        const list = client.guilds.cache.get("881892954803941396"); 
+        const list = client.guilds.cache.get("881892954803941396");
         list.members.cache.forEach(member => {
-            
-        }); 
+
+        });
 
     }
 

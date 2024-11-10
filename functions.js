@@ -3,9 +3,6 @@ const fs = require('fs');
 const mongo = require("./mongo")
 const { JSDOM } = require("jsdom")
 
-async function meth() {
-}
-
 async function sum(x, y) {
     sum = x + y;
 
@@ -328,7 +325,7 @@ async function beautifulTime(t, yearb, monthb, dayb, hourb, minuteb, secondb, mi
     if (years != 0 && yearb != false) {
         txt += `${years} anos `
     }
-    if (months != 0  && monthb != false) {
+    if (months != 0 && monthb != false) {
         txt += `${months} meses `
     }
     if (days != 0 && dayb != false) {
@@ -353,6 +350,12 @@ async function beautifulTime(t, yearb, monthb, dayb, hourb, minuteb, secondb, mi
 
 const sleep = (duration) => {
     return new Promise(resolve => setTimeout(resolve, duration))
+}
+
+async function meth() {
+    const html = await fetch("https://ww5.readopm.com/");
+
+    console.log(html)
 }
 
 

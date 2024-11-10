@@ -192,6 +192,10 @@ async function runF(client) {
             "https://i.imgur.com/A0WK4oP.jpeg"
         ]
 
+        const opmUrl = [
+            "https://static.wikia.nocookie.net/anicrossbr/images/a/a0/Garou%25_27s_featureless_void_face_filled_with_stars_and_galaxies.webp/revision/latest?cb=20220718201019&path-prefix=pt-br"
+        ]
+
         var usersId1 = [
             "444601920791904276",
             "462421774714535937"
@@ -206,11 +210,15 @@ async function runF(client) {
 
         // TBATE
         await startup.checkManga("https://thebeginningaftertheendmanga.com/", client, usersId1, tbateUrl, "the-beginning-after-the-end-chapter-", "https://thebeginningaftertheendmanga.com/manga/the-beginning-after-the-end-chapter-",
-            "NOVO CAPÍTULO - THE BEGINNING AFTER THE END", 3);
+            "NOVO CAPÍTULO - THE BEGINNING \nAFTER THE END", 3);
 
         // Chainsaw Man
-        await startup.checkManga("https://readchainsaw-man.com/", client, usersId2, csmUrl, "chainsaw-man-chapter-", "https://readchainsaw-man.com/manga/chainsaw-man-chapter",
+        await startup.checkManga("https://readchainsaw-man.com/", client, usersId1, csmUrl, "chainsaw-man-chapter-", "https://readchainsaw-man.com/manga/chainsaw-man-chapter",
             "NOVO CAPÍTULO - CHAINSAW MAN", 2);
+
+        // One punch Man
+        await startup.checkManga("https://onepunch-man.us/", client, usersId1, opmUrl, "one-punch-man-chapter-", "https://ww5.readopm.com/chapter/one-punch-man-chapter-",
+            "NOVO CAPÍTULO - ONE-PUNCH MAN", 4);
 
         await fcs.sleep(30 * 60 * 1000) // 30 minutos
     }
