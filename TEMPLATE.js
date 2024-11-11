@@ -13,7 +13,7 @@ module.exports = {
 				.setName('')
 				.setDescription('')),
 
-	async execute(interaction) {
+	async execute(interaction, client) {
         // Whatever
 		const reason = interaction.options.getString('reason')
 	},

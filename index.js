@@ -66,7 +66,11 @@ const ver = 0;
             // will always run
             await mongoose.connection.close()
 
-            fcs.runF(client)
+            try {
+                fcs.runF(client)
+            } catch (e) {
+                console.log(e)
+            }
         }
     })
 

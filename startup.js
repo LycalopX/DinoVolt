@@ -4,7 +4,8 @@ const Discord = require("discord.js");
 const fcs = require("./functions.js");
 const mongo = require(`./mongo`)
 const fetch = require("node-fetch")
-const cron = require("cron")
+const cron = require("cron");
+const user = require('./schemes/user.js');
 
 
 
@@ -57,7 +58,7 @@ module.exports = {
 
         const mangaScheme = require("./schemes/manga.js")
         var txt = `**Os capítulos mais recentes são:** \n\n`
-        
+
         var chapter = 0;
 
 
@@ -117,7 +118,7 @@ module.exports = {
                 user.send({ embeds: [await fcs.embed("9C80E1", newChapText, url, null, txt, null, randomUrl)] })
             }
 
-        } catch (e) { 
+        } catch (e) {
             console.log(e);
         }
 
@@ -153,7 +154,36 @@ module.exports = {
 
         });
 
+    },
+
+    async kronos(client) {
+        const users = [
+            "414198565523423235",
+            "444601920791904276"
+        ]
+
+        new cron.CronJob("0 0 20 * * 7", function () {
+            for (var user of users) {
+
+                user = client.users.cache.get(user)
+
+                user.send("eae fdp, já fez o EOL?");
+            }
+        }).start()
     }
+
+    /*
+
+    async kronos(client) {
+        var alerts = client.cache["alerts"]
+
+        // EOL alert
+        // for every person (ignore noob :ˆ)
+        for (noob of alerts[1]) {
+            cron.CronJob("0 0 20 * * 7");
+        }
+    }
+        */
 
 
 }

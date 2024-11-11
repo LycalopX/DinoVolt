@@ -385,6 +385,7 @@ module.exports = {
 
         startup.distube(client);
         startup.updateResets();
+        startup.kronos(client)
 
         for (i = 0; i >= 0; i++) {
 
