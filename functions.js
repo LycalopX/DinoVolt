@@ -417,19 +417,19 @@ module.exports = {
 
             // Oshi no Ko
             await startup.checkManga("https://readoshino.com/", client, usersId1, oshinokoUrl, "oshi-no-ko-chapter-", "https://readoshino.com/manga/oshi-no-ko-chapter-",
-                "NOVO CAPÍTULO - OSHI NO KO", 1);
+                "NOVO CAPÍTULO - OSHI NO KO", 1, this.newData, this.embed);
 
             // TBATE
             await startup.checkManga("https://thebeginningaftertheendmanga.com/", client, usersId1, tbateUrl, "the-beginning-after-the-end-chapter-", "https://thebeginningaftertheendmanga.com/manga/the-beginning-after-the-end-chapter-",
-                "NOVO CAPÍTULO - THE BEGINNING \nAFTER THE END", 3);
+                "NOVO CAPÍTULO - THE BEGINNING \nAFTER THE END", 3, this.newData, this.embed);
 
             // Chainsaw Man
             await startup.checkManga("https://readchainsaw-man.com/", client, usersId1, csmUrl, "chainsaw-man-chapter-", "https://readchainsaw-man.com/manga/chainsaw-man-chapter",
-                "NOVO CAPÍTULO - CHAINSAW MAN", 2);
+                "NOVO CAPÍTULO - CHAINSAW MAN", 2, this.newData, this.embed);
 
             // One punch Man
             await startup.checkManga("https://onepunch-man.us/", client, usersId1, opmUrl, "one-punch-man-chapter-", "https://ww5.readopm.com/chapter/one-punch-man-chapter-",
-                "NOVO CAPÍTULO - ONE-PUNCH MAN", 4);
+                "NOVO CAPÍTULO - ONE-PUNCH MAN", 4, this.newData, this.embed);
 
             await sleep(30 * 60 * 1000) // 30 minutos
         }

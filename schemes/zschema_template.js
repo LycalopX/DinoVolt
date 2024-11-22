@@ -1,24 +1,44 @@
 const mongoose = require('mongoose')
 
-const reqString = {
-    type: String,
-    required: true
+module.exports = {
+    reqString: {
+        type: String,
+        required: true
+    },
+    typeString: {
+        type: String,
+        required: false
+    },
+    reqNumber: {
+        type: Number,
+        required: true
+    },
+    typeNumber: {
+        type: Number,
+        required: false
+    },
+    reqBoolean: {
+        type: Boolean,
+        required: true
+    },
+    typeBoolean: {
+        type: Boolean,
+        required: false
+    },
+    reqArray: {
+        type: Array,
+        required: true
+    },
+    typeArray: {
+        type: Array,
+        required: false
+    },
+    reqDate: {
+        type: Date,
+        required: true
+    },
+    typeDate: {
+        type: Date,
+        required: false
+    }
 }
-const reqNumber = {
-    type: Number,
-    required: true
-}
-const reqBoolean = {
-    type: Boolean,
-    required: true
-}
-const reqArray = {
-    type: Array,
-    required: true
-}
-const reqDate = {
-    type: Date,
-    required: true
-}
-
-module.exports = { reqString, reqNumber, reqBoolean, reqArray, mongoose, reqDate }

@@ -52,7 +52,7 @@ module.exports = {
 
     },
 
-    async checkManga(url, client, usersId, arrayUrl, chapterName, fullurl, newChapText, idNumber) {
+    async checkManga(url, client, usersId, arrayUrl, chapterName, fullurl, newChapText, idNumber, newData, embed) {
 
         const randomUrl = arrayUrl[Math.floor(Math.random() * (arrayUrl.length - 1))]
 
@@ -107,7 +107,7 @@ module.exports = {
                 return
             }
 
-            fcs.newData(mangaScheme, { _id: idNumber, count: chapter })
+            newData(mangaScheme, { _id: idNumber, count: chapter })
             client.cache["mangas"][idNumber - 1].count = chapter
 
 
@@ -115,7 +115,7 @@ module.exports = {
                 var userid = usersId[i];
 
                 var user = client.users.cache.get(userid)
-                user.send({ embeds: [await fcs.embed("9C80E1", newChapText, url, null, txt, null, randomUrl)] })
+                user.send({ embeds: [await embed("9C80E1", newChapText, url, null, txt, null, randomUrl)] })
             }
 
         } catch (e) {
@@ -159,7 +159,7 @@ module.exports = {
     async kronos(client) {
         const users = [
             "414198565523423235",
-            "444601920791904276"
+            "444601920791904276" 
         ]
 
         new cron.CronJob("0 0 20 * * 7", function () {
