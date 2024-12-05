@@ -159,7 +159,7 @@ module.exports = {
     async kronos(client) {
         const users = [
             "414198565523423235",
-            "444601920791904276" 
+            "444601920791904276"
         ]
 
         new cron.CronJob("0 0 20 * * 7", function () {
@@ -170,7 +170,37 @@ module.exports = {
                 user.send("eae fdp, já fez o EOL?");
             }
         }).start()
-    }
+    },
+
+    async checkFont(url, client, userid, embed) {
+
+        // In case the network error occurs
+        try {
+
+            await fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+
+                    }
+                    return response.text(); // Get the response as text (HTML content)
+                })
+                .then(async html => {
+
+                    if (html.includes(`- Escola de Engenharia de São Carlos`)) {
+
+                        var user = client.users.cache.get(userid)
+                        user.send({ embeds: [await embed("9C80E1", "SAIU SAIU SAIU", url, null, "Parece que o Edital finalmente saiu...", null)] })
+
+                    }
+                })
+
+        } catch (e) {
+            console.log(e);
+        }
+
+
+    },
 
     /*
 

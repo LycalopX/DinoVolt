@@ -382,16 +382,19 @@ module.exports = {
     // Roda periodicamente
     async runF(client) {
 
+        var usersId1 = [
+            "444601920791904276",
+            "462421774714535937"
+        ]
+        var usersId2 = [
+            "444601920791904276",
+        ]
 
         startup.distube(client);
         startup.updateResets();
         startup.kronos(client)
 
         for (i = 0; i >= 0; i++) {
-
-            const oshinokoUrl = [
-                "https://a.storyblok.com/f/178900/2865x4047/501b5563cc/oshi-no-ko-staffel-2-visual.jpeg/m/filters:quality(95)format(webp)",
-                "https://preview.redd.it/ojc1mumucfsc1.jpeg?width=640&crop=smart&auto=webp&s=eec8ef46572193d63226eb62bce683286f9fd49a"]
 
             const csmUrl = [
                 "https://static.wikia.nocookie.net/chainsaw-man/images/c/c0/ChainsawManVolume1.jpeg/revision/latest?cb=20210921233305&path-prefix=pt-br",
@@ -407,18 +410,6 @@ module.exports = {
                 "https://static.wikia.nocookie.net/anicrossbr/images/a/a0/Garou%25_27s_featureless_void_face_filled_with_stars_and_galaxies.webp/revision/latest?cb=20220718201019&path-prefix=pt-br"
             ]
 
-            var usersId1 = [
-                "444601920791904276",
-                "462421774714535937"
-            ]
-            var usersId2 = [
-                "444601920791904276",
-            ]
-
-            // Oshi no Ko
-            await startup.checkManga("https://readoshino.com/", client, usersId1, oshinokoUrl, "oshi-no-ko-chapter-", "https://readoshino.com/manga/oshi-no-ko-chapter-",
-                "NOVO CAPÍTULO - OSHI NO KO", 1, this.newData, this.embed);
-
             // TBATE
             await startup.checkManga("https://thebeginningaftertheendmanga.com/", client, usersId1, tbateUrl, "the-beginning-after-the-end-chapter-", "https://thebeginningaftertheendmanga.com/manga/the-beginning-after-the-end-chapter-",
                 "NOVO CAPÍTULO - THE BEGINNING \nAFTER THE END", 3, this.newData, this.embed);
@@ -430,6 +421,10 @@ module.exports = {
             // One punch Man
             await startup.checkManga("https://onepunch-man.us/", client, usersId1, opmUrl, "one-punch-man-chapter-", "https://ww5.readopm.com/chapter/one-punch-man-chapter-",
                 "NOVO CAPÍTULO - ONE-PUNCH MAN", 4, this.newData, this.embed);
+
+
+            startup.checkFont("https://eesc.usp.br/noticias/comunicados_s.php?guid=transferencia-interna-1-2025-vagas-oferecidas-por-outras-unidades-da-usp&termid=todos", client, usersId2[0], this.embed);
+
 
             await sleep(30 * 60 * 1000) // 30 minutos
         }
