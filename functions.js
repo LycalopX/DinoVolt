@@ -389,6 +389,10 @@ module.exports = {
         var usersId2 = [
             "444601920791904276",
         ]
+        var usersId3 = [
+            "444601920791904276",
+            "669519587267706881"
+        ]
 
         startup.distube(client);
         startup.updateResets();
@@ -423,7 +427,7 @@ module.exports = {
                 "NOVO CAPÍTULO - ONE-PUNCH MAN", 4, this.newData, this.embed);
 
 
-            startup.checkFont("https://eesc.usp.br/noticias/comunicados_s.php?guid=transferencia-interna-1-2025-vagas-oferecidas-por-outras-unidades-da-usp&termid=todos", client, usersId2[0], this.embed);
+            startup.checkFont("https://eesc.usp.br/noticias/comunicados_s.php?guid=transferencia-interna-1-2025-vagas-oferecidas-por-outras-unidades-da-usp&termid=todos", client, usersId3, this.embed);
 
 
             await sleep(30 * 60 * 1000) // 30 minutos

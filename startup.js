@@ -172,7 +172,7 @@ module.exports = {
         }).start()
     },
 
-    async checkFont(url, client, userid, embed) {
+    async checkFont(url, client, userIds, embed) {
 
         // In case the network error occurs
         try {
@@ -189,8 +189,10 @@ module.exports = {
 
                     if (html.includes(`- Escola de Engenharia de São Carlos`)) {
 
-                        var user = client.users.cache.get(userid)
-                        user.send({ embeds: [await embed("9C80E1", "SAIU SAIU SAIU", url, null, "Parece que o Edital finalmente saiu...", null)] })
+                        for (var userid of userIds) {
+                            var user = client.users.cache.get(userid)
+                            user.send({ embeds: [await embed("9C80E1", "SAIU SAIU SAIU", url, null, "Saiu finalmente o Edital da transferência da EESC (dsclp por spammar, o weber vai ter q me desligar até eu parar)", null, "https://i.imgur.com/i64Gi6K.jpeg")] })
+                        }
 
                     }
                 })
