@@ -27,12 +27,12 @@ module.exports = {
 
             const embed = await fcs.embed("#9c80e1", "Alarmes", null, null, txt,)
 
-            await interaction.reply({ embeds: [ embed ]});
+            await interaction.reply({ embeds: [embed] });
 
         } else {
 
-            if (reason <= 0 || reason % 1 != 0 || reason > alerts.length){
-                interaction.reply({ embeds: [ fcs.embed("e18080", "Erro", null, null, "Por favor, escolha entre uma das opções fornecidas. \nSe estiver fazendo tudo corretamente mas ainda der erro, contate LycalopX")]})
+            if (reason <= 0 || reason % 1 != 0 || reason > alerts.length) {
+                interaction.reply({ embeds: [fcs.embed("e18080", "Erro", null, null, "Por favor, escolha entre uma das opções fornecidas. \nSe estiver fazendo tudo corretamente mas ainda der erro, contate LycalopX")] })
                 return;
             }
 
@@ -48,33 +48,34 @@ module.exports = {
 
                 await fcs.updateData(schema, obj);
 
-                interaction.reply({ embeds: [ fcs.embed("e18080", "80e1b1", null, null, `Você foi removido de ${client.cache["alerts"][reason - 1]}. Para se inscrever novamente, rode o comando da mesma forma.`)]})
+                interaction.reply({ embeds: [fcs.embed("e18080", "80e1b1", null, null, `Você foi removido de ${client.cache["alerts"][reason - 1]}. Para se inscrever novamente, rode o comando da mesma forma.`)] })
             } else {
                 var obj = Alert
 
                 obj.users.push(interaction)
 
                 await fcs.updateData(schema, obj);
-                interaction.reply({ embeds: [ fcs.embed("e18080", "80e1b1", null, null, `Você foi adicionado em ${client.cache["alerts"][reason - 1]}. Para se desinscrever, rode o comando da mesma forma.`)]})
+                interaction.reply({ embeds: [fcs.embed("e18080", "80e1b1", null, null, `Você foi adicionado em ${client.cache["alerts"][reason - 1]}. Para se desinscrever, rode o comando da mesma forma.`)] })
             }
 
         }
     },
 };
 
-async function  sendChoices(client) {
-    
+async function sendChoices(client) {
+
     var txt = "Aqui estão os alarmes disponíveis: \n\n";
 
     var i = 1
-
-    for (noob of alerts) { 
-
-        txt += `${i}. **${noob._id}** \n`
-        txt += `${noob.description}\n\n`
-
-        i++
-    }
-
-    return txt;
+    /*
+        for (noob of alerts) { 
+    
+            txt += `${i}. **${noob._id}** \n`
+            txt += `${noob.description}\n\n`
+    
+            i++
+        }
+    
+        return txt;
+        */
 }

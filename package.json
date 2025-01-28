@@ -16,12 +16,8 @@
   "author": "Muchacho and LycalopX",
   "license": "UNLICENSED",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.576.0",
-    "@distube/yt-dlp": "^2.0.1",
-    "@distube/ytsr": "^2.0.4",
     "cron": "^3.1.8",
     "discord.js": "^14.12.1",
-    "distube": "^5.0.4",
     "jsdom": "^24.0.0",
     "mongodb": "6.6",
     "mongoose": "^8.4.0",

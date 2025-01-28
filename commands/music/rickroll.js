@@ -15,15 +15,7 @@ module.exports = {
 		const userVoiceChannel = interaction.member.voice.channel;
         
 		try {
-			client.distube
-				.play(userVoiceChannel, userMusic, {
-					interaction,
-					textChannel: interaction.channel,
-					member: interaction.member,
-				})
-				.catch(err => {
-					interaction.reply(err.message)
-				})
+			// Play the song (not working rn)
 
 			const Embed = await fcs.embed(null, null, null, null, `Pedido por ${interaction.member} aceito.`)
 			

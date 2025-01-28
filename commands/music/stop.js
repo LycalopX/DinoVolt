@@ -15,7 +15,8 @@ module.exports = {
 		var EmbedErr = await fcs.embed("FF0000", "Não tem nada na *queue* no momento!")
 		var EmbedStop = await fcs.embed("FF0000", "Parou!")
 		
-		const queue = client.distube.getQueue(interaction)
+		// Need to change it 
+		const queue = ["penis", "dick"];
 
 		if (!queue)  {
 			return interaction.reply({ embeds: [ EmbedErr ]})

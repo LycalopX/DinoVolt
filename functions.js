@@ -382,19 +382,12 @@ module.exports = {
     // Roda periodicamente
     async runF(client) {
 
-        var usersId1 = [
+        var usersId = [
             "444601920791904276",
-            "462421774714535937"
-        ]
-        var usersId2 = [
-            "444601920791904276",
-        ]
-        var usersId3 = [
-            "444601920791904276",
+            "462421774714535937",
             "669519587267706881"
         ]
 
-        startup.distube(client);
         startup.updateResets();
         startup.kronos(client)
 
@@ -415,20 +408,16 @@ module.exports = {
             ]
 
             // TBATE
-            await startup.checkManga("https://thebeginningaftertheendmanga.com/", client, usersId1, tbateUrl, "the-beginning-after-the-end-chapter-", "https://thebeginningaftertheendmanga.com/manga/the-beginning-after-the-end-chapter-",
+            await startup.checkManga("https://thebeginningaftertheendmanga.com/", client, usersId, tbateUrl, "the-beginning-after-the-end-chapter-", "https://thebeginningaftertheendmanga.com/manga/the-beginning-after-the-end-chapter-",
                 "NOVO CAPÍTULO - THE BEGINNING \nAFTER THE END", 3, this.newData, this.embed);
 
             // Chainsaw Man
-            await startup.checkManga("https://readchainsaw-man.com/", client, usersId1, csmUrl, "chainsaw-man-chapter-", "https://readchainsaw-man.com/manga/chainsaw-man-chapter",
+            await startup.checkManga("https://readchainsaw-man.com/", client, usersId, csmUrl, "chainsaw-man-chapter-", "https://readchainsaw-man.com/manga/chainsaw-man-chapter",
                 "NOVO CAPÍTULO - CHAINSAW MAN", 2, this.newData, this.embed);
 
             // One punch Man
-            await startup.checkManga("https://onepunch-man.us/", client, usersId1, opmUrl, "one-punch-man-chapter-", "https://ww5.readopm.com/chapter/one-punch-man-chapter-",
+            await startup.checkManga("https://onepunch-man.us/", client, usersId, opmUrl, "one-punch-man-chapter-", "https://ww5.readopm.com/chapter/one-punch-man-chapter-",
                 "NOVO CAPÍTULO - ONE-PUNCH MAN", 4, this.newData, this.embed);
-
-
-            startup.checkFont("https://eesc.usp.br/noticias/comunicados_s.php?guid=transferencia-interna-1-2025-vagas-oferecidas-por-outras-unidades-da-usp&termid=todos", client, usersId3, this.embed);
-
 
             await sleep(30 * 60 * 1000) // 30 minutos
         }

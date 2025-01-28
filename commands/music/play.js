@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const fcs = require('../../functions.js')
-const ytsr = require("@distube/ytsr");
 
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
@@ -38,21 +37,11 @@ module.exports = {
 
 
 			var txt = ``;
+			// Where the music is stored
 			var res = {}
 
-
-			await ytsr(userMusic, { safeSearch: true, limit: 15 }).then(result => {
-
-				for (var i = 0; i < 15; i++) {
-					var n = i + 1
-					var song = `**${n}.** ${result.items[i].name}\n`
-
-					txt += song
-				}
-
-				res = result;
-			});
-
+			// Get the music
+			var txt = "bla bla bla"
 
             const tuts = client.emojis.cache.get("1244804188140208240");
 			const Embed = await fcs.embed("#9C80E1", `${tuts} Escolha entre as músicas abaixo ${tuts}`, null, null, txt)
@@ -81,16 +70,7 @@ module.exports = {
 				console.log(res)
 				var song = res.items[num].url
 
-				await client.distube
-					.play(userVoiceChannel, song, {
-						interaction,
-						textChannel: interaction.channel,
-						member: interaction.member,
-					})
-					.catch(async err => {
-						await interaction.followUp(err.message)
-						return
-					})
+				// And then you play the song
 
 			});
 

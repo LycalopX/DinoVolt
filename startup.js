@@ -11,47 +11,6 @@ const user = require('./schemes/user.js');
 
 module.exports = {
 
-    async distube(client) {
-
-        // Music Player
-        const { DisTube } = require('distube')
-        const { YtDlpPlugin } = require('@distube/yt-dlp');
-
-        client.distube = new DisTube(client, {
-            emitNewSongOnly: true,
-            emitAddSongWhenCreatingQueue: false,
-            emitAddListWhenCreatingQueue: false,
-            plugins: [
-                new YtDlpPlugin()
-            ]
-        })
-
-        // EVENTOS - Distube
-        try {
-            client.distube
-                .on("playSong", async (interaction) => {
-
-
-                    const queue = client.distube.getQueue(interaction)
-                    const song = queue.songs[0]
-
-                    const glitchedcat = client.emojis.cache.get("1234961134868758539");
-                    const dancinparrot = client.emojis.cache.get("1234961203709874326")
-
-                    var embededMessage = await
-                        fcs.embed("3364FF", `${glitchedcat} Tocando: ${song.name} - Duração: ${song.formattedDuration} ${glitchedcat}`, null, null,
-                            `${dancinparrot} Pedido por: ${song.user} ${dancinparrot}`)
-
-                    interaction.textChannel.send({ embeds: [embededMessage] })
-                });
-        } catch (e) {
-
-            console.log(e)
-        }
-
-
-    },
-
     async checkManga(url, client, usersId, arrayUrl, chapterName, fullurl, newChapText, idNumber, newData, embed) {
 
         const randomUrl = arrayUrl[Math.floor(Math.random() * (arrayUrl.length - 1))]
