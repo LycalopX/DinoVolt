@@ -16,14 +16,18 @@
   "author": "Muchacho and LycalopX",
   "license": "UNLICENSED",
   "dependencies": {
+    "@discordjs/voice": "^0.18.0",
     "cron": "^3.1.8",
-    "discord.js": "^14.12.1",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.7",
+    "install": "^0.13.0",
     "jsdom": "^24.0.0",
     "mongodb": "6.6",
     "mongoose": "^8.4.0",
     "node-fetch": "^2.7.0",
-    "npm": "^10.7.0",
-    "sodium-native": "^4.1.1"
+    "npm": "^10.9.2",
+    "sodium-native": "^4.1.1",
+    "ytdl-core": "npm:@distube/ytdl-core@^4.15.9"
   },
   "type": "commonjs"
 }

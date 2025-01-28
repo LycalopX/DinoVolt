@@ -390,6 +390,7 @@ module.exports = {
 
         startup.updateResets();
         startup.kronos(client)
+        startup.Music(client)
 
         for (i = 0; i >= 0; i++) {
 

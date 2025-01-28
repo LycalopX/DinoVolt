@@ -163,6 +163,27 @@ module.exports = {
 
     },
 
+    async Music(client) {
+        require('dotenv').config();
+        const { createAudioPlayer, AudioPlayerStatus } = require('@discordjs/voice');
+
+
+        // We create a single AudioPlayer that can be reused.
+        const player = createAudioPlayer();
+
+
+        player.on(AudioPlayerStatus.Idle, () => {
+            console.log('Estou inativo');
+        });
+        player.on('error', error => {
+            console.error('Erro no player. \n', error);
+        });
+        
+        // Attach the player instance directly to the client
+        client.player = player;
+
+    },
+
     /*
 
     async kronos(client) {

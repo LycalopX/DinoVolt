@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 const fcs = require('../../functions.js')
 
+const { createAudioResource, joinVoiceChannel, createAudioPlayer, AudioPlayerStatus } = require('@discordjs/voice');
+const ytdl = require('ytdl-core');
+
 module.exports = {
 	data: new Discord.SlashCommandBuilder()
 
@@ -15,8 +18,11 @@ module.exports = {
 
 	async execute(interaction, client) {
 
+		const player = client.player;
+
 		const userMusic = interaction.options.getString('music')
-		const userVoiceChannel = interaction.member.voice.channel;
+		const userVoiceChannel = interaction.member.voice.channel.id;
+		const userGuild = interaction.guild.id;
 
 		const glitchedcat = client.emojis.cache.get("1234961134868758539");
 		const dancinparrot = client.emojis.cache.get("1234961203709874326")
@@ -35,7 +41,7 @@ module.exports = {
 		// Tocando a música
 		try {
 
-
+			/*
 			var txt = ``;
 			// Where the music is stored
 			var res = {}
@@ -43,7 +49,7 @@ module.exports = {
 			// Get the music
 			var txt = "bla bla bla"
 
-            const tuts = client.emojis.cache.get("1244804188140208240");
+			const tuts = client.emojis.cache.get("1244804188140208240");
 			const Embed = await fcs.embed("#9C80E1", `${tuts} Escolha entre as músicas abaixo ${tuts}`, null, null, txt)
 
 			await interaction.reply({ embeds: [Embed] })
@@ -79,6 +85,26 @@ module.exports = {
 					embeds: [await fcs.errEmbed("Demorou demais!", "Sinto muito, para colocar outra música tente novamente!")]
 				})
 			});
+			*/
+
+			var url = "https://www.youtube.com/watch?v=JhQa8LiILyk"
+
+			// Join the voice channel
+			const connection = joinVoiceChannel({
+				channelId: userVoiceChannel,
+				guildId: userGuild,
+				adapterCreator: interaction.guild.voiceAdapterCreator
+			});
+
+			// Create audio resource from YouTube
+			const stream = ytdl(url, { filter: 'audioonly' });
+			const resource = createAudioResource(stream);
+
+			// Subscribe the connection to the player and then play
+			connection.subscribe(player);
+			player.play(resource);
+
+			interaction.reply(`Now playing: ${url}`);
 
 
 

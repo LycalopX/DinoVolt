@@ -10,6 +10,7 @@ const mongo = require(`./mongo`)
 const { commandHandler, client } = require('./handler.js')
 var token = ""; var client_id = ""
 client.cache = new Discord.Collection();
+client.player = new Discord.Collection();
 
 
 
